@@ -19,6 +19,15 @@ const setPassword = password =>{
         } 
 }
 
+const setToken = token =>{
+    return {
+            type: "USER_LOGIN_SET_TOKEN",
+            payload: {
+                token: token
+            }
+        } 
+}
+
 const resetForm = () => {
     return {
         type: "USER_LOGIN_RESET_FORM"
@@ -40,8 +49,9 @@ const userLogin = (email, password) => async dispatch =>{
             data:newData
         })
 
-        //const token = newUser.data.Authorization
-
+        const token = newUser.response.Data.Authorization
+        console.log(token)
+        dispatch(setToken(token))
         console.log("Login Success")
 
     } catch (error) {

@@ -1,6 +1,7 @@
 const initialState = {
     email: "",
     password: "",
+    token:""
 }
 
 const userLoginReducer = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const userLoginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 password: action.payload.password
+            }
+        case "USER_LOGIN_SET_TOKEN":
+            return {
+                ...state,
+                token: action.payload.token
             }
         default:
             return state
