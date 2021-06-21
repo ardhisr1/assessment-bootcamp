@@ -1,4 +1,5 @@
 import clientApi from "../../api/clientApi"
+import { useHistory } from 'react-router';
 
 const setEmail = email =>{
     return {
@@ -9,7 +10,7 @@ const setEmail = email =>{
         } 
 }
 
-const setPasword = password =>{
+const setPassword = password =>{
     return {
             type: "USER_LOGIN_SET_PASSWORD",
             payload: {
@@ -26,7 +27,7 @@ const resetForm = () => {
 
 const userLogin = (email, password) => async dispatch =>{
     try {
-        console.log("Registering user..")
+        console.log("login user..")
 
         const newData = {
             "email":email,
@@ -39,7 +40,7 @@ const userLogin = (email, password) => async dispatch =>{
             data:newData
         })
 
-        const token = newUser.data.Authorization
+        //const token = newUser.data.Authorization
 
         console.log("Login Success")
 
@@ -49,7 +50,7 @@ const userLogin = (email, password) => async dispatch =>{
 }
 
 const userLoginAction = {
-    setPasword,
+    setPassword,
     setEmail,
     resetForm,
     userLogin

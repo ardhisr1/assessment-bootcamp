@@ -27,7 +27,7 @@ const setEmail = email =>{
         } 
 }
 
-const setPasword = password =>{
+const setPassword = password =>{
     return {
             type: "USER_REGISTER_SET_PASSWORD",
             payload: {
@@ -69,7 +69,7 @@ const userRegisterAction = {
     setAddress,
     setEmail,
     setFullname,
-    setPasword,
+    setPassword,
     userRegister,
     resetForm,
 }

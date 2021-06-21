@@ -1,8 +1,8 @@
 const initialState = {
-    "fullname": "",
-    "address":"",
-    "email":"",
-    "password":"",
+    fullname: "",
+    address:"",
+    email:"",
+    password:"",
 }
 
 const userRegisterReducer = (state = initialState, action) =>{
