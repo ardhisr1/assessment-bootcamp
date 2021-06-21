@@ -42,7 +42,7 @@ func (s *service) SaveNewUser(input entity.UserInput) (UserFormat, error) {
 		return UserFormat{}, err
 	}
 
-	formatedUser := FormatUser(createdUser.FullName, createdUser.Address, createdUser.Email)
+	formatedUser := FormatUser(createdUser.ID, createdUser.FullName, createdUser.Address, createdUser.Email)
 	return formatedUser, nil
 }
 
@@ -57,7 +57,7 @@ func (s *service) GetUserByID(UserID string) (UserFormat, error) {
 		return UserFormat{}, errors.New(NewError)
 	}
 
-	formatedUser := FormatUser(user.FullName, user.Address, user.Email)
+	formatedUser := FormatUser(user.ID, user.FullName, user.Address, user.Email)
 	return formatedUser, nil
 }
 
@@ -74,13 +74,13 @@ func (s *service) Login(account entity.UserLogin) (UserFormat, error) {
 		return UserFormat{}, errors.New("password invalid")
 	}
 
-	formatedUser := FormatUser(user.FullName, user.Address, user.Email)
+	formatedUser := FormatUser(user.ID, user.FullName, user.Address, user.Email)
 	return formatedUser, nil
 }
 
 func (s *service) EditUserByID(UserID string, data entity.UserUpdateInput) (UserFormat, error) {
 	var user entity.User
 
-	formatedUser := FormatUser(user.FullName, user.Address, user.Email)
+	formatedUser := FormatUser(user.ID, user.FullName, user.Address, user.Email)
 	return formatedUser, nil
 }
