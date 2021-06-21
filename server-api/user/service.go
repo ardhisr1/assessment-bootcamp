@@ -22,7 +22,7 @@ func NewService(repo Repository) *service {
 }
 
 func (s *service) SaveNewUser(input entity.UserInput) (entity.User, error) {
-	//encrypt, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+	// encrypt, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
 	// if err != nil {
 	// 	return entity.User{}, err
@@ -52,6 +52,22 @@ func (s *service) GetUserByID(UserID string) (entity.User, error) {
 		NewError := fmt.Sprintf("user id %s not found", UserID)
 		return entity.User{}, errors.New(NewError)
 	}
+
+	return user, nil
+}
+
+func (s *service) Login(account entity.UserLogin) (entity.User, error) {
+	user, err := s.repository.FindByEmai(account.Email)
+	if err != nil {
+		return entity.User{}, err
+	}
+
+	if user.Password != account.Password {
+		return user, errors.New("password invalid")
+	}
+	// if err := bycrypt.CompareHashAndPassword([]byte(user.Password), []byte(account.Password)); err != nil {
+	// 	return user, errors.New("password invalid")
+	// }
 
 	return user, nil
 }

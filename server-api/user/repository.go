@@ -7,8 +7,8 @@ import (
 )
 
 type Repository interface {
-	FindAll() ([]entity.User, error)
 	FindByID(userID string) (entity.User, error)
+	FindByEmai(email string) (entity.User, error)
 	Create(user entity.User) (entity.User, error)
 	UpdateByID(userID string, data map[string]interface{}) (entity.User, error)
 	DeleteByID(userID string) (interface{}, error)
@@ -22,20 +22,20 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) FindAll() ([]entity.User, error) {
-	var users []entity.User
-
-	if err := r.db.Find(&users).Error; err != nil {
-		return users, err
-	}
-
-	return users, nil
-}
-
 func (r *repository) FindByID(UserID string) (entity.User, error) {
 	var user entity.User
 
 	if err := r.db.Where("id = ?", UserID).Find(&user).Error; err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
+func (r *repository) FindByEmai(email string) (entity.User, error) {
+	var user entity.User
+
+	if err := r.db.Where("email = ?", email).Find(&user).Error; err != nil {
 		return user, err
 	}
 
