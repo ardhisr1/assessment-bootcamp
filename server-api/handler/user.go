@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"server-api/auth"
 	"server-api/entity"
 	"server-api/user"
 
@@ -8,20 +9,20 @@ import (
 )
 
 type userHandler struct {
-	service user.Service
+	service     user.Service
+	authService auth.Service
 }
 
-func NewHandler(service user.Service) *userHandler {
-	return &userHandler{service}
+func NewUserHandler(service user.Service, authService auth.Service) *userHandler {
+	return &userHandler{service, authService}
+}
 
-func (h *userHandler) RegisterUser(c *gin.Context) {
-	 var input entity.UserInput
+func (h *userHandler) RegisterUserHandler(c *gin.Context) {
+	var input entity.UserInput
 
-	 newUser, err := h.service.SaveNewUser(input)
-	 
-	 response := {
-		 201,
-		 "success",
-	 }
-	 c.JSON(201, response)
+	newUser, err := h.service.SaveNewUser(input)
+
+	if err != nil {
+	}
+	c.JSON(201, newUser)
 }
