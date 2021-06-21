@@ -19,9 +19,14 @@ func NewUserHandler(service user.Service, authService auth.Service) *userHandler
 }
 
 func (h *userHandler) RegisterUserHandler(c *gin.Context) {
-	var input entity.UserInput
+	var userInput entity.UserInput
 
-	newUser, err := h.service.SaveNewUser(input)
+	if err := c.ShouldBindJSON(&userInput); err != nil {
+		responseError := helper.FailResponse(400, "input required", err.Error())
+		c.JSON(500, responseError)
+	}
+
+	newUser, err := h.service.SaveNewUser(userInput)
 
 	if err != nil {
 		responseError := helper.FailResponse(500, "internal server error", err.Error())
@@ -47,6 +52,10 @@ func (h *userHandler) GetUserDetailHandler(c *gin.Context) {
 func (h *userHandler) LoginUserHandler(c *gin.Context) {
 	var input entity.UserLogin
 
+	if err := c.ShouldBindJSON(&input); err != nil {
+		responseError := helper.FailResponse(400, "input required", err.Error())
+		c.JSON(500, responseError)
+	}
 	user, err := h.service.Login(input)
 
 	if err != nil {

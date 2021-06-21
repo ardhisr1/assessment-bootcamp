@@ -36,7 +36,7 @@ func (s *service) SaveNewUser(input entity.UserInput) (UserFormat, error) {
 		Email:    input.Email,
 		Password: string(encrypt),
 	}
-
+	//println(newUser)
 	createdUser, err := s.repository.Create(newUser)
 	if err != nil {
 		return UserFormat{}, err
