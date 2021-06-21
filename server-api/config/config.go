@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"server-api/entity"
-
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -27,7 +25,7 @@ func Connection() *gorm.DB {
 		panic(err.Error())
 	}
 
-	db.AutoMigrate(&entity.User{})
-	db.AutoMigrate(&entity.PasswordItem{})
+	// db.AutoMigrate(&entity.User{})
+	// db.AutoMigrate(&entity.PasswordItem{})
 	return db
 }
