@@ -36,7 +36,7 @@ const setPasword = password =>{
         } 
 }
 
-const resetPassword = () => {
+const resetForm = () => {
     return {
         type: "USER_REGISTER_RESET_FORM"
     }
